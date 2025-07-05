@@ -324,18 +324,116 @@ const trailer = req.files?.trailer?.[0];
 };
 
 
+// export const getAllMovies = async (req, res) => {
+//   try {
+//     const [movies] = await db.query(`SELECT * FROM movie 
+//       LEFT JOIN 
+      
+//       ORDER BY id DESC`);
+
+//     return res.status(200).json({
+//       status: 1,
+//       message: "Movies fetched successfully",
+//       data: movies,
+//       error: []
+//     });
+//   } catch (error) {
+//     return res.status(500).json({
+//       status: 0,
+//       message: "Failed to fetch movies",
+//       error: error.message,
+//       data: []
+//     });
+//   }
+// };
+
+
 export const getAllMovies = async (req, res) => {
   try {
-    const [movies] = await db.query("SELECT * FROM movie ORDER BY id DESC");
+    const [movies] = await db.query(`
+      SELECT 
+        id,
+        title,
+        cast_data_id,
+        crew_id,
+        gener_id,
+        language_id,
+        release_date,
+        description,
+        country,
+        thumbnail_image,
+        trailer_path,
+        year,
+        streaming_id
+      FROM movie
+      ORDER BY id DESC
+    `);
 
-    return res.status(200).json({
+    const results = [];
+
+    for (const movie of movies) {
+      const castIds = movie.cast_data_id?.split(',').filter(Boolean).map(Number) || [];
+      const crewIds = movie.crew_id?.split(',').filter(Boolean).map(Number) || [];
+      const generIds = movie.gener_id?.split(',').filter(Boolean).map(Number) || [];
+      const langIds = movie.language_id?.split(',').filter(Boolean).map(Number) || [];
+      const streamIds = movie.streaming_id?.split(',').filter(Boolean).map(Number) || [];
+
+      const [cast] = await db.query(`
+        SELECT cd.id, cd.charector_name, ad.actor_name, ad.actor_image
+        FROM cast_data cd
+        JOIN actor_data ad ON cd.actor_data_id = ad.id
+        WHERE cd.id IN (?)
+      `, [castIds]);
+
+      const [crew] = await db.query(`
+        SELECT id, name, designation, image
+        FROM crew_data
+        WHERE id IN (?)
+      `, [crewIds]);
+
+      const [genres] = await db.query(`
+        SELECT id, name
+        FROM gener
+        WHERE id IN (?)
+      `, [generIds]);
+
+      const [languages] = await db.query(`
+        SELECT id, name
+        FROM language
+        WHERE id IN (?)
+      `, [langIds]);
+
+      const [streaming] = await db.query(`
+        SELECT id, streaming_platform, image
+        FROM streaming
+        WHERE id IN (?)
+      `, [streamIds]);
+
+      results.push({
+        id: movie.id,
+        title: movie.title,
+        cast,
+        crew,
+        genres,
+        languages,
+        release_date: movie.release_date,
+        description: movie.description,
+        country: movie.country,
+        thumbnail: movie.thumbnail_image,
+        trailer: movie.trailer_path,
+        year: movie.year,
+        streaming,
+      });
+    }
+
+    res.status(200).json({
       status: 1,
       message: "Movies fetched successfully",
-      data: movies,
+      data: results,
       error: []
     });
   } catch (error) {
-    return res.status(500).json({
+    res.status(500).json({
       status: 0,
       message: "Failed to fetch movies",
       error: error.message,
@@ -343,3 +441,61 @@ export const getAllMovies = async (req, res) => {
     });
   }
 };
+
+
+// export const getAllMovies = async (req, res) => {
+//   try {
+//     const [movies] = await db.query(`
+//       SELECT 
+//         m.id,
+//         m.title,
+//         m.release_date,
+//         m.description,
+//         m.country,
+//         m.thumbnail_image AS thumbnail,
+//         m.trailer_path AS trailer,
+//         m.year,
+
+//         GROUP_CONCAT(DISTINCT CONCAT(ad.actor_name, ' (', cd.charector_name, ')')) AS cast,
+//         GROUP_CONCAT(DISTINCT CONCAT(cr.name, ' (', cr.designation, ')')) AS crew,
+//         GROUP_CONCAT(DISTINCT g.name) AS genres,
+//         GROUP_CONCAT(DISTINCT l.name) AS languages,
+//         GROUP_CONCAT(DISTINCT s.streaming_platform) AS streaming
+
+//       FROM movie m
+
+//       LEFT JOIN movie_cast mc ON mc.movie_id = m.id
+//       LEFT JOIN cast_data cd ON mc.cast_data_id = cd.id
+//       LEFT JOIN actor_data ad ON cd.actor_data_id = ad.id
+
+//       LEFT JOIN movie_crew mcr ON mcr.movie_id = m.id
+//       LEFT JOIN crew_data cr ON mcr.crew_id = cr.id
+
+//       LEFT JOIN movie_gener mg ON mg.movie_id = m.id
+//       LEFT JOIN gener g ON mg.gener_id = g.id
+
+//       LEFT JOIN movie_language ml ON ml.movie_id = m.id
+//       LEFT JOIN language l ON ml.language_id = l.id
+
+//       LEFT JOIN movie_streaming ms ON ms.movie_id = m.id
+//       LEFT JOIN streaming s ON ms.streaming_id = s.id
+
+//       GROUP BY m.id
+//       ORDER BY m.id DESC
+//     `);
+
+//     res.status(200).json({
+//       status: 1,
+//       message: "Movies fetched successfully",
+//       data: movies,
+//       error: []
+//     });
+//   } catch (error) {
+//     res.status(500).json({
+//       status: 0,
+//       message: "Failed to fetch movies",
+//       error: error.message,
+//       data: []
+//     });
+//   }
+// };

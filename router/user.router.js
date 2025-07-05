@@ -1,30 +1,61 @@
-import express from 'express'
-import { changePassword, check, editProfile, emailVerification, forgetPassword, languageAndGener, loginUser, registerUser, reportList } from '../controller/userController.js'
-import { authVerify } from '../middleware/auth.js'
+import express from "express";
+import {
+  changePassword,
+  check,
+  editProfile,
+  emailVerification,
+  forgetPassword,
+  languageAndGener,
+  loginUser,
+  registerUser,
+  reportList,
+} from "../controller/userController.js";
+import { authVerify } from "../middleware/auth.js";
 
-const userRouter = express.Router()
+const userRouter = express.Router();
 
-{/**Loin */}
-//#swagger.tags = ['User']
-userRouter.post("/createUser",registerUser)
-//#swagger.tags = ['User']
-userRouter.post("/loginUser",loginUser)
-//#swagger.tags = ['User']
-userRouter.get("/check",authVerify,check)
-//#swagger.tags = ['User']
-userRouter.post("/emailVeryfy",emailVerification)
-//#swagger.tags = ['User']
-userRouter.post("/forgetPassword",forgetPassword)
-//#swagger.tags = ['User']
-userRouter.post("/changePassword",changePassword)
-//#swagger.tags = ['User']
-userRouter.post("/addExtraData",languageAndGener)
-//#swagger.tags = ['User']
-userRouter.put("/editProfile",editProfile)
+{
+  /**Loin */
+}
+userRouter.post("/createUser", (req, res) => {
+  //#swagger.tags = ['User']
+  registerUser(req, res);
+});
+userRouter.post("/loginUser", (req, res) => {
+  //#swagger.tags = ['User']
+  loginUser(req, res);
+});
+userRouter.get("/check", (req, res) => {
+  //#swagger.tags = ['User']
+  check(req, res);
+});
+userRouter.post("/emailVeryfy", (req, res) => {
+  //#swagger.tags = ['User']
+  emailVerification(req, res);
+});
+userRouter.post("/forgetPassword", (req, res) => {
+  //#swagger.tags = ['User']
+  forgetPassword(req, res);
+});
+userRouter.post("/changePassword", (req, res) => {
+  //#swagger.tags = ['User']
+  changePassword(req, res);
+});
+userRouter.post("/addExtraData", (req, res) => {
+  //#swagger.tags = ['User']
+  languageAndGener(req, res);
+});
+userRouter.put("/editProfile", (req, res) => {
+  //#swagger.tags = ['User']
+  editProfile(req, res);
+});
 
+{
+  /**Report */
+}
+userRouter.get("/getReportList", (req, res) => {
+  //#swagger.tags = ['User']
+  authVerify, reportList(req, res);
+});
 
-{/**Report */}
-//#swagger.tags = ['User']
-userRouter.get("/getReportList",authVerify,reportList)
-
-export default userRouter
+export default userRouter;

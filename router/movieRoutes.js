@@ -1,42 +1,83 @@
-import express from 'express';
-import { actorById, actorList, addactor, addCrew, addStreaming, castAdd, editactor, editStream, getAllMovies, streamingList, uploadMovieAssets } from '../controller/movieController.js';
-import { uploadMovieFiles } from '../middleware/multer.js';
+import express from "express";
+import {
+  actorById,
+  actorList,
+  addactor,
+  addCrew,
+  addStreaming,
+  castAdd,
+  editactor,
+  editStream,
+  getAllMovies,
+  streamingList,
+  uploadMovieAssets,
+} from "../controller/movieController.js";
+import { uploadMovieFiles } from "../middleware/multer.js";
 
 const movieRouter = express.Router();
 
-//#swagger.tags = ['Movie']
-movieRouter.post('/uploadAssets', uploadMovieFiles, uploadMovieAssets);
+movieRouter.post("/uploadMovie", (req, res) =>
+  //#swagger.tags = ['Movie']
+  {
+    uploadMovieFiles, uploadMovieAssets(req, res);
+  }
+);
 
-//#swagger.tags = ['Movie']
-movieRouter.get('/all', getAllMovies);
+movieRouter.get("/movieById", (req, res) => {
+  //#swagger.tags = ['Movie']
+  getAllMovies(req, res);
+});
 
-{/**streaming */}
-//#swagger.tags = ['Movie']
-movieRouter.post("/addstreaming",uploadMovieFiles,addStreaming)
-//#swagger.tags = ['Movie']
-movieRouter.get("/streamingList",streamingList)
-//#swagger.tags = ['Movie']
-movieRouter.put("/editStreaming",uploadMovieFiles,editStream)
+{
+  /**streaming */
+}
+movieRouter.post("/addstreaming", (req, res) => {
+  //#swagger.tags = ['Movie']
+  uploadMovieFiles, addStreaming(req, res);
+});
+movieRouter.get("/streamingList", (req, res) => {
+  //#swagger.tags = ['Movie']
+  streamingList(req, res);
+});
+movieRouter.put("/editStreaming", (req, res) => {
+  //#swagger.tags = ['Movie']
+  uploadMovieFiles, editStream(req, res);
+});
 
+{
+  /**Actor */
+}
+movieRouter.post("/addActors", (req, res) => {
+  //#swagger.tags = ['Movie']
+  uploadMovieFiles, addactor(req, res);
+});
+movieRouter.get("/actorList", (req, res) => {
+  //#swagger.tags = ['Movie']
+  actorList(req, res);
+});
+movieRouter.get("/actorByid/:id", (req, res) => {
+  //#swagger.tags = ['Movie']
+  actorById(req, res);
+});
+movieRouter.put("/editActor", (req, res) => {
+  //#swagger.tags = ['Movie']
+  uploadMovieFiles, editactor(req, res);
+});
 
-{/**Actor */}
-//#swagger.tags = ['Movie']
-movieRouter.post("/addActors",uploadMovieFiles,addactor)
-//#swagger.tags = ['Movie']
-movieRouter.get("/actorList",actorList)
-//#swagger.tags = ['Movie']
-movieRouter.get("/actorByid/:id",actorById)
-//#swagger.tags = ['Movie']
-movieRouter.put("/editActor",uploadMovieFiles,editactor)
+{
+  /**Crew */
+}
+movieRouter.post("/addCrew", (req, res) => {
+  //#swagger.tags = ['Movie']
+  uploadMovieFiles, addCrew(req, res);
+});
 
-
-
-{/**Crew */}
-//#swagger.tags = ['Movie']
-movieRouter.post("/addCrew",uploadMovieFiles,addCrew)
-
-{/**Cast */}
-//#swagger.tags = ['Movie']
-movieRouter.post("/addCast",castAdd)
+{
+  /**Cast */
+}
+movieRouter.post("/addCast", (req, res) => {
+  //#swagger.tags = ['Movie']
+  castAdd(req, res);
+});
 
 export default movieRouter;

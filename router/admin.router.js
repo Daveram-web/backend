@@ -1,28 +1,62 @@
-import express from 'express'
-import { addLanguage, addReportList, createGener, deleteGener, deleteLanguage, editGener, editLanguage, editReportList } from '../controller/adminController.js'
+import express from "express";
+import {
+  addLanguage,
+  addReportList,
+  createGener,
+  deleteGener,
+  deleteLanguage,
+  editGener,
+  editLanguage,
+  editReportList,
+} from "../controller/adminController.js";
 
-const adminRoute = express.Router()
+const adminRoute = express.Router();
 
-{/*Gener */}
-// #swagger.tags = ['Admin']
-adminRoute.post("/addGener",createGener)
-// #swagger.tags = ['Admin']
-adminRoute.put("/editGener",editGener)
-// #swagger.tags = ['Admin']
-adminRoute.delete("/deleteGener",deleteGener)
-{/*Language */}
-// #swagger.tags = ['Admin']
-adminRoute.post("/addLang",addLanguage);
-// #swagger.tags = ['Admin']
-adminRoute.put("/editLang",editLanguage)
-// #swagger.tags = ['Admin']
-adminRoute.delete("/deleteLan",deleteLanguage)
-{/**Report APIS */}
-// #swagger.tags = ['Admin']
-adminRoute.post("/addReport",addReportList)
-// #swagger.tags = ['Admin']
-adminRoute.put("/editReport",editReportList)
- 
-export  default adminRoute;
+{
+  /*Gener */
+}
+adminRoute.post("/addGener", (req, res) => {
+  // #swagger.tags = ['Admin']
+  createGener;
+});
+adminRoute.put("/editGener", (req, res) => {
+  // #swagger.tags = ['Admin']
+  editGener;
+});
 
+adminRoute.delete("/deleteGener", (req, res) => {
+  // #swagger.tags = ['Admin']
+  deleteGener;
+});
+{
+  /*Language */
+}
+adminRoute.post("/addLang", (req, res) => {
+  // #swagger.tags = ['Admin']
+  addLanguage;
+});
 
+adminRoute.put("/editLang", (req, res) => {
+  // #swagger.tags = ['Admin']
+  editLanguage;
+});
+
+adminRoute.delete("/deleteLan", (req, res) => {
+  // #swagger.tags = ['Admin']
+  deleteLanguage;
+});
+
+{
+  /**Report APIS */
+}
+adminRoute.post("/addReport", (req, res) => {
+  // #swagger.tags = ['Admin']
+  addReportList;
+});
+
+adminRoute.put("/editReport", (req, re) => {
+  // #swagger.tags = ['Admin']
+  editReportList;
+});
+
+export default adminRoute;

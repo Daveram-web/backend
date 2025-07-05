@@ -3,7 +3,7 @@ import swaggerAutogen from 'swagger-autogen';
 const doc = {
   info: {
     title: 'Movie Review API',
-    description: 'Automatically generated Swagger doc',
+    description: 'Ithu movie Review OOda APIS irrukum',
   },
   host: 'localhost:5006',
   schemes: ['http'], 
@@ -15,14 +15,10 @@ const doc = {
 };
 
 const outputFile = './swagger-output.json';       
-const endpointsFiles = ['./index.js', './router/*.js'];
+const endpointsFiles = ['./index.js'];
 
 
-// const endpointsFiles = [
-//   './index.js',
-//   './router/admin.router.js',
-//   './router/movieRoutes.js',
-// ];
+
 
 const swaggerAutogenInstance = swaggerAutogen();
 
