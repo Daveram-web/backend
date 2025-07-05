@@ -10,12 +10,19 @@ const doc = {
   tags: [
     { name: 'User', description: 'User-related APIs' },
     { name: 'Admin', description: 'Admin APIs' },
-    { name: 'movie', description: 'Movie-related APIs' },
+    { name: 'Movie', description: 'Movie-related APIs' },
   ],
 };
 
 const outputFile = './swagger-output.json';       
-const endpointsFiles = ['./index.js'];              
+const endpointsFiles = ['./index.js', './router/*.js'];
+
+
+// const endpointsFiles = [
+//   './index.js',
+//   './router/admin.router.js',
+//   './router/movieRoutes.js',
+// ];
 
 const swaggerAutogenInstance = swaggerAutogen();
 

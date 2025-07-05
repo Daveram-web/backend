@@ -7,6 +7,8 @@ import movieRouter from './router/movieRoutes.js'
 import swaggerUi from 'swagger-ui-express';
 import fs from 'fs'
 
+
+
 const swaggerFile = JSON.parse(fs.readFileSync('./swagger-output.json', 'utf-8'));
 
 dotenv.config()
@@ -16,13 +18,13 @@ const PORT  = process.env.PORT
 app.use("/uploads",express.static("uploads"))
 
 app.use(cors())
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
+
 
 app.use(express.json())
 app.use(urlencoded({extended:true}))
 
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 app.use("/user",userRouter)
 app.use("/admin",adminRoute)
 app.use("/movie",movieRouter)
