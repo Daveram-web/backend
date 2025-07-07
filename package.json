@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "  nodemon index.js",
+      "swagger": "node swagger.js && node patchSwagger.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

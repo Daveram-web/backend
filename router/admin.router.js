@@ -17,33 +17,52 @@ const adminRoute = express.Router();
 }
 adminRoute.post("/addGener", (req, res) => {
   // #swagger.tags = ['Admin']
-  createGener;
+  createGener(req, res);
 });
 adminRoute.put("/editGener", (req, res) => {
   // #swagger.tags = ['Admin']
-  editGener;
+  //#swagger.tags = ['Admin']
+  /*
+  #swagger.requestBody = {
+    required: true,
+    content: {
+      "application/json": {
+        schema: {
+          type: "object",
+          properties: {
+            name: { type: "string" }
+          },
+          example: {
+            name: "Comedy"
+          }
+        }
+      }
+    }
+  }
+  */
+  editGener(req, res);
 });
 
 adminRoute.delete("/deleteGener", (req, res) => {
   // #swagger.tags = ['Admin']
-  deleteGener;
+  deleteGener(req, res);
 });
 {
   /*Language */
 }
 adminRoute.post("/addLang", (req, res) => {
   // #swagger.tags = ['Admin']
-  addLanguage;
+  addLanguage(req, res);
 });
 
 adminRoute.put("/editLang", (req, res) => {
   // #swagger.tags = ['Admin']
-  editLanguage;
+  editLanguage(req, res);
 });
 
 adminRoute.delete("/deleteLan", (req, res) => {
   // #swagger.tags = ['Admin']
-  deleteLanguage;
+  deleteLanguage(req, res);
 });
 
 {
@@ -51,12 +70,12 @@ adminRoute.delete("/deleteLan", (req, res) => {
 }
 adminRoute.post("/addReport", (req, res) => {
   // #swagger.tags = ['Admin']
-  addReportList;
+  addReportList(req, res);
 });
 
 adminRoute.put("/editReport", (req, re) => {
   // #swagger.tags = ['Admin']
-  editReportList;
+  editReportList(req, res);
 });
 
 export default adminRoute;
