@@ -378,7 +378,7 @@ export const editProfile = async (req, res) => {
       fields.push("date_of_birth = ?");
       values.push(dateOfBirth);
     }
-    if (notification !== undefined) {  // Allow false as valid value
+    if (notification !== undefined) {   
       fields.push("is_notify = ?");
       values.push(notification);
     }
@@ -390,7 +390,7 @@ export const editProfile = async (req, res) => {
       });
     }
 
-    values.push(id); // For WHERE clause
+    values.push(id);  
     const sql = `UPDATE user SET ${fields.join(", ")} WHERE id = ?`;
 
     const [result] = await db.query(sql, values);

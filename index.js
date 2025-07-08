@@ -6,6 +6,7 @@ import adminRoute from './router/admin.router.js'
 import movieRouter from './router/movieRoutes.js'
 import swaggerUi from 'swagger-ui-express';
 import fs from 'fs'
+import reviewRouter from './router/review.router.js'
 
 
 
@@ -28,6 +29,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 app.use("/user",userRouter)
 app.use("/admin",adminRoute)
 app.use("/movie",movieRouter)
+app.use('/review',reviewRouter)
 
 
 

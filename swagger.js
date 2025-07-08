@@ -11,6 +11,7 @@ const doc = {
     { name: 'User', description: 'User-related APIs' },
     { name: 'Admin', description: 'Admin APIs' },
     { name: 'Movie', description: 'Movie-related APIs' },
+    {name:'Review' ,description:"Therse Are related to the Review"}
   ],
 };
 

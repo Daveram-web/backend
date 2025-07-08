@@ -91,6 +91,7 @@ export const editStream = async(req,res)=>{
 
 export const addactor =async(req,res)=>{
   try {
+    console.log('req.body', req.body)
     const actor = req.files?.actor?.[0];
     const {name} = req.body;  
     console.log('name', name)
@@ -118,6 +119,7 @@ export const addactor =async(req,res)=>{
 
 export const actorList = async(req,res)=>{
   try {
+
     let [list]  = await db.query("SELECT * FROM actor_data ")
     let result = list.length ? 1 : 0;
     return res.status(200).json({
@@ -324,36 +326,14 @@ const trailer = req.files?.trailer?.[0];
 };
 
 
-// export const getAllMovies = async (req, res) => {
-//   try {
-//     const [movies] = await db.query(`SELECT * FROM movie 
-//       LEFT JOIN 
-      
-//       ORDER BY id DESC`);
-
-//     return res.status(200).json({
-//       status: 1,
-//       message: "Movies fetched successfully",
-//       data: movies,
-//       error: []
-//     });
-//   } catch (error) {
-//     return res.status(500).json({
-//       status: 0,
-//       message: "Failed to fetch movies",
-//       error: error.message,
-//       data: []
-//     });
-//   }
-// };
-
-
-export const getAllMovies = async (req, res) => {
+export const getById = async (req, res) => {
   try {
+    const {id} = req.params;
     const [movies] = await db.query(`
       SELECT 
-        id,
+        
         title,
+        ratting,
         cast_data_id,
         crew_id,
         gener_id,
@@ -365,9 +345,9 @@ export const getAllMovies = async (req, res) => {
         trailer_path,
         year,
         streaming_id
-      FROM movie
+      FROM movie WHERE id = ? AND status = 0 
       ORDER BY id DESC
-    `);
+    `,[id]);
 
     const results = [];
 
@@ -412,17 +392,18 @@ export const getAllMovies = async (req, res) => {
       results.push({
         id: movie.id,
         title: movie.title,
+        ratting : movie.ratting,
         cast,
         crew,
         genres,
         languages,
+        streaming,
         release_date: movie.release_date,
         description: movie.description,
         country: movie.country,
         thumbnail: movie.thumbnail_image,
         trailer: movie.trailer_path,
         year: movie.year,
-        streaming,
       });
     }
 
@@ -440,62 +421,126 @@ export const getAllMovies = async (req, res) => {
       data: []
     });
   }
+
+
 };
 
+export const editMovie = async(req,res)=>{
+  try {
+    const {id} = req.params;
+    const {title,castData,crew,gener,language,release_date,description,country,year,streaming}= req.body;
+    const thumbnail = req.files?.thumbnail?.[0]
+    const trailer = req.files?.trailer?.[0]
+   const castD = typeof castData === "string" ? castData.split(",") : castData;
+    const crewD = typeof crew === "string" ? crew.split(",") : crew;
+    const generD = typeof gener === "string" ? gener.split(",") : gener;
+    const langD = typeof language === "string" ? language.split(",") : language;
+    const streamD = typeof streaming === "string" ? streaming.split(",") : streaming;
 
-// export const getAllMovies = async (req, res) => {
-//   try {
-//     const [movies] = await db.query(`
-//       SELECT 
-//         m.id,
-//         m.title,
-//         m.release_date,
-//         m.description,
-//         m.country,
-//         m.thumbnail_image AS thumbnail,
-//         m.trailer_path AS trailer,
-//         m.year,
+    
+    let fields = [];
+    let values = [];
 
-//         GROUP_CONCAT(DISTINCT CONCAT(ad.actor_name, ' (', cd.charector_name, ')')) AS cast,
-//         GROUP_CONCAT(DISTINCT CONCAT(cr.name, ' (', cr.designation, ')')) AS crew,
-//         GROUP_CONCAT(DISTINCT g.name) AS genres,
-//         GROUP_CONCAT(DISTINCT l.name) AS languages,
-//         GROUP_CONCAT(DISTINCT s.streaming_platform) AS streaming
+    if(title){
+      fields.push("title = ?")
+      values.push(title)
+    }
 
-//       FROM movie m
+    if(castData){
+      fields.push("cast_data_id = ? ")
+      values.push(castD.join(','))
+    }
+    if(crew){
+      fields.push("crew_id =?")
+      values.push(crewD.join(','))
+    }
+    if(gener){
+      fields.push("gener_id=?")
+      values.push(generD.join(','))
+    }
+    if(language){
+      fields.push("language_id = ?")
+      values.push(langD.join(','))
+    }
 
-//       LEFT JOIN movie_cast mc ON mc.movie_id = m.id
-//       LEFT JOIN cast_data cd ON mc.cast_data_id = cd.id
-//       LEFT JOIN actor_data ad ON cd.actor_data_id = ad.id
+    if(release_date){
+      fields.push("release_date = ?")
+      values.push(release_date)
+    }
+    if(description){
+      fields.push("description=?")
+      values.push(description)
+    }
+    if(country){
+      fields.push("country = ? ")
+      values.push(country)
+    }
 
-//       LEFT JOIN movie_crew mcr ON mcr.movie_id = m.id
-//       LEFT JOIN crew_data cr ON mcr.crew_id = cr.id
+    if(thumbnail){
+      fields.push("thumbnail_image = ?")
+      values.push(thumbnail?.filename)
+    }
 
-//       LEFT JOIN movie_gener mg ON mg.movie_id = m.id
-//       LEFT JOIN gener g ON mg.gener_id = g.id
+    if(trailer){
+      fields.push("trailer_path = ?")
+      values.push(trailer?.filename)
+    }
+    if(year){
+      fields.push("year = ?")
+      values.push(year)
+    }
+    if(streaming){
+      fields.push("streaming_id = ?")
+      values.push(streamD.join(','))
+    }
 
-//       LEFT JOIN movie_language ml ON ml.movie_id = m.id
-//       LEFT JOIN language l ON ml.language_id = l.id
+    values.push(id)
+    const sql = `UPDATE movie SET ${fields.join(",")} WHERE id = ?`
+    let [update] = await db.query(sql,values)
+    let result = update.affectedRows ? 1 : 0
+    return res.status(200).json({
+      message : "The value is updated",
+      status : result,
+      error : [],
+      data:[]
+    })
 
-//       LEFT JOIN movie_streaming ms ON ms.movie_id = m.id
-//       LEFT JOIN streaming s ON ms.streaming_id = s.id
+  } catch (error) {
+    return res.status(400).json({
+      error:error.message
+    })
+  }
+}
 
-//       GROUP BY m.id
-//       ORDER BY m.id DESC
-//     `);
 
-//     res.status(200).json({
-//       status: 1,
-//       message: "Movies fetched successfully",
-//       data: movies,
-//       error: []
-//     });
-//   } catch (error) {
-//     res.status(500).json({
-//       status: 0,
-//       message: "Failed to fetch movies",
-//       error: error.message,
-//       data: []
-//     });
-//   }
-// };
+export const deleteMovieById = async(req,res)=>{
+  try {
+    const {id} = req.params;
+    const [deletes] = await db.query("UPDATE movie SET status = 1 WHERE id = ?",[id]) 
+    let result = deletes.affectedRows ? 1  : 0 
+    return res.status(200).json({
+      message:"The Movie is deleted",
+      status:result,
+      error:[],
+      data:[]
+    })
+  } catch (error) {
+    return res.status(400).json({error:error.message})
+  }
+}
+
+
+
+
+{/**Need to Upgrade the api and add 3 more result for the api AS Recommended ,Latest and Most Popular */}
+export const movieList = async(req,res)=>{
+
+  try {
+    const {offset} = req.body;
+    const [list] = await db.query("SELECT * FROM movie LIMIT = 18 OFFSET = ? ORDER BY DESC",[offset])
+    let result = list.length ? 1 : 0
+
+  } catch (error) {
+    
+  }
+}
