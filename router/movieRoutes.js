@@ -11,6 +11,11 @@ import {
   editMovie,
   editStream,
   getById,
+  getLatestMovies,
+  getPopularMovies,
+  getRecommendedMovies,
+  movieList,
+  searchApi,
   streamingList,
   uploadMovieAssets,
 } from "../controller/movieController.js";
@@ -22,10 +27,35 @@ const movieRouter = express.Router();
 //#swagger.tags = ['Movie']
 movieRouter.post("/uploadMovie",uploadMovieFiles, uploadMovieAssets)
 
+
+movieRouter.get("/movieList/:user_id",(req,res)=>{
+  //#swagger.tags = ['Movie']
+  movieList(req,res)
+})
 movieRouter.get("/movieById/:id", (req, res) => {
   //#swagger.tags = ['Movie']
   getById(req, res);
 });
+movieRouter.get("/recommended/:user_id",(req,res)=>{
+  //#swagger.tags = ['Movie']
+  getRecommendedMovies(req,res)
+})
+movieRouter.get("/latest",(req,res)=>{
+  //#swagger.tags = ['Movie']
+  getLatestMovies(req,res)
+})
+movieRouter.get("/popular",(req,res)=>{
+  //#swagger.tags = ['Movie']
+  getPopularMovies(req,res)
+})
+movieRouter.post("/searchApi",(req,res)=>{
+  //#swagger.tags = ["Movie"]
+  searchApi(req,res)
+})
+
+
+
+
 
 movieRouter.put("/editById/:id",(req,res)=>{
   //#swagger.tags = ['Movie']

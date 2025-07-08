@@ -215,8 +215,6 @@ export const Bookmark = async (req, res) => {
 //   }
 // };
 
-
-
 export const follow = async (req, res) => {
   try {
     const { follower_id, following_id } = req.body;
@@ -226,7 +224,7 @@ export const follow = async (req, res) => {
         message: "Missing follower_id or following_id",
         error: "follower_id & following_id required",
         data: [],
-        status: 0
+        status: 0,
       });
     }
 
@@ -251,13 +249,12 @@ export const follow = async (req, res) => {
         message: "You have followed the user",
         status: 1,
         data: "Neeinga follow pannitinga",
-        error: []
+        error: [],
       });
     } else {
-      const [unfollow] = await db.query(
-        "DELETE FROM follow WHERE id = ?",
-        [exists[0].id]
-      );
+      const [unfollow] = await db.query("DELETE FROM follow WHERE id = ?", [
+        exists[0].id,
+      ]);
 
       await db.query(
         `DELETE FROM notification 
@@ -269,7 +266,7 @@ export const follow = async (req, res) => {
         message: "You have unfollowed the user",
         status: 1,
         data: "Neeinga unfollow pannitinga",
-        error: []
+        error: [],
       });
     }
   } catch (error) {
@@ -277,11 +274,10 @@ export const follow = async (req, res) => {
       message: "Something went wrong",
       error: error.message,
       data: [],
-      status: 0
+      status: 0,
     });
   }
 };
-
 
 export const followersList = async (req, res) => {
   try {
@@ -369,7 +365,6 @@ export const followingList = async (req, res) => {
   }
 };
 
-
 // export const like = async (req, res) => {
 //   try {
 //     const { review_id, reviewer_id, user_id, command_id, commender_id } = req.body;
@@ -438,11 +433,10 @@ export const followingList = async (req, res) => {
 //   }
 // };
 
-
-
 export const like = async (req, res) => {
   try {
-    const { review_id, reviewer_id, user_id, command_id, commender_id } = req.body;
+    const { review_id, reviewer_id, user_id, command_id, commender_id } =
+      req.body;
 
     if (review_id) {
       const [exists] = await db.query(
@@ -469,10 +463,7 @@ export const like = async (req, res) => {
           error: [],
         });
       } else {
-        await db.query(
-          "DELETE FROM like_table WHERE id = ?",
-          [exists[0].id]
-        );
+        await db.query("DELETE FROM like_table WHERE id = ?", [exists[0].id]);
 
         await db.query(
           "DELETE FROM notification WHERE sender_id = ? AND receiver_id = ? AND notification_type = 'postLike'",
@@ -483,7 +474,7 @@ export const like = async (req, res) => {
           message: "You have unliked the review",
           status: 1,
           data: [],
-          error: []
+          error: [],
         });
       }
     }
@@ -510,13 +501,10 @@ export const like = async (req, res) => {
           message: "The comment has been liked",
           status: 1,
           data: [],
-          error: []
+          error: [],
         });
       } else {
-        await db.query(
-          "DELETE FROM like_table WHERE id = ?",
-          [exists[0].id]
-        );
+        await db.query("DELETE FROM like_table WHERE id = ?", [exists[0].id]);
 
         await db.query(
           "DELETE FROM notification WHERE sender_id = ? AND receiver_id = ? AND notification_type = 'commandLike'",
@@ -527,7 +515,7 @@ export const like = async (req, res) => {
           message: "You have unliked the comment",
           status: 1,
           data: [],
-          error: []
+          error: [],
         });
       }
     }
@@ -536,16 +524,15 @@ export const like = async (req, res) => {
       message: "Missing review_id or command_id",
       status: 0,
       data: [],
-      error: ["Invalid input"]
+      error: ["Invalid input"],
     });
-
   } catch (error) {
     console.error("Like error:", error);
     return res.status(500).json({
       message: "Internal server error",
       status: 0,
       data: [],
-      error: [error.message]
+      error: [error.message],
     });
   }
 };
@@ -587,6 +574,271 @@ export const reportUser = async (req, res) => {
       messae: error,
       error: error.message,
       status: 0,
+      data: [],
+    });
+  }
+};
+
+export const createCommand = async (req, res) => {
+  try {
+    const { reviewId, userId, reciverId, comment, replayCommandId } = req.body;
+    if (!reviewId || !userId || !replayCommandId || !comment) {
+      return res.status(400).json({
+        error: "All fields are required",
+        message: "Ella fileds ku data varala",
+        data: [],
+        status: 0,
+      });
+    }
+    let [create] = await db.query(
+      "INSERT INTO comments (review_id,user_id,comment,replayed_comment_id) VALUES (?,?,?,?)",
+      [reviewId, userId, comment, replayCommandId]
+    );
+    let result = create.affectedRows ? 1 : 0;
+
+    const [notify] = await db.query(
+      "INSERT INTO notification(sender_id,receiver_id,message,notification_type,clear_id) VALUES(?,?,?,'commented',?)",
+      [userId, reciverId, comment, create?.insertId]
+    );
+    let notifyresult = notify.affectedRows ? 1 : 0;
+    let notifymessage = notifyresult
+      ? "The Notification Added"
+      : "The Notification is Not added";
+    return res.status(200).json({
+      data: "The Command has added",
+      error: [],
+      message: "Command added",
+      status: result,
+      notifyresult: notifyresult,
+      notifymessage: notifymessage,
+    });
+  } catch (error) {
+    return res.status(400).json({
+      message: error,
+      error: [error.message],
+      data: [],
+      status: 0,
+    });
+  }
+};
+
+export const editCommand = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { comment } = req.body;
+    if (!id) {
+      return res.status(400).json({
+        message: "Command ooda Id aah pass pannuinga",
+        data: [],
+        error: "Command Id is missing",
+        status: 0,
+      });
+    }
+    let [update] = await db.query(
+      "UPDATE  comments SET comment = ? WHERE id  = ?",
+      [comment, id]
+    );
+    let [updatenotify] = await db.query(
+      "UPDATE  notification SET message = ? WHERE clear_id  = ?",
+      [comment, id]
+    );
+    let result = update.affectedRows ? 1 : 0;
+    return res.status(200).json({
+      messae: "The command is updated",
+      status: result,
+      error: [],
+      data: "The Value is changed",
+    });
+  } catch (error) {
+    return res.status(400).json({
+      messae: error,
+      error: [error.message],
+      data: [],
+      status: 0,
+    });
+  }
+};
+
+// export const deleteCommand = async (req, res) => {
+//   try {
+//     const { id } = req.params;
+//     const [getSubcommandId] = await db.query(
+//       "SELECT id FROM comments WHERE replayed_comment_id =? ",
+//       [id]
+//     );
+//     const idsToDelete = [id, ...getSubcommandId.map((row) => row.id)];
+
+//     const [deletes] = await db.query(
+//       `DELETE FROM comments
+//       WHERE id = ? OR replayed_comment_id = ?`,
+//       [id, id]
+//     );
+//     let result = deletes.affectedRows ? 1 : 0;
+
+//     const [deletesnotify] = await db.query(
+//       `DELETE FROM notification WHERE clear_id IN (${idsToDelete
+//         .map(() => "?")
+//         .join(",")})`,
+//       idsToDelete
+//     );
+//     let notifyresult = deletesnotify.affectedRows ? 1 : 0;
+
+//     return res.status(200).json({
+//       message: "The Commands where Deleted",
+//       data: "The Command is deleted",
+//       error: [],
+//       status: result,
+//     });
+//   } catch (error) {
+//     return res.status(400).json({
+//       messae: error,
+//       error: [error.messae],
+//       data: [],
+//       status: 0,
+//     });
+//   }
+// };
+
+export const deleteCommand = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+     const [subComments] = await db.query(
+      "SELECT id FROM comments WHERE replayed_comment_id = ?",
+      [id]
+    );
+
+     const idsToDelete = [id, ...subComments.map((row) => row.id)];
+
+     const [deletes] = await db.query(
+      `DELETE FROM comments WHERE id IN (${idsToDelete
+        .map(() => "?")
+        .join(",")})`,
+      idsToDelete
+    );
+
+     const [deletesnotify] = await db.query(
+      `DELETE FROM notification WHERE clear_id IN (${idsToDelete
+        .map(() => "?")
+        .join(",")})`,
+      idsToDelete
+    );
+
+    const result = deletes.affectedRows ? 1 : 0;
+
+    return res.status(200).json({
+      message: "The comment and replies were deleted",
+      data: "Deleted",
+      error: [],
+      status: result,
+    });
+  } catch (error) {
+    return res.status(400).json({
+      message: error.message,
+      error: [error.message],
+      data: [],
+      status: 0,
+    });
+  }
+};
+
+// export const getAllCommand = async (req, res) => {
+//   try {
+//     const { id,userId } = req.body;
+    
+//     const [data] = await db.query(
+//       `
+//       SELECT 
+//         c.id AS comment_id,
+//         c.comment,
+//         c.created_at,
+//         c.user_id,
+//         c.replayed_comment_id, -- ✅ reply reference
+//         u.name AS commenter_name,
+//         u.avathar,
+//         CASE 
+//             WHEN lk.user_id IS NOT NULL THEN true 
+//             ELSE false 
+//           END AS is_favorite,
+//         COUNT(l.id) AS like_count -- ✅ total likes for this comment
+//       FROM comments AS c
+//       LEFT JOIN user AS u ON c.user_id = u.id
+//       LEFT JOIN like_table AS l ON c.id = l.command_id AND l.like_type = 2
+//       LEFT JOIN like_table AS lk ON c.user_id = l.user_id AND l.like_type = 2 AND lk.user_id = ?
+//       WHERE c.review_id = ? AND c.status = 0
+//       GROUP BY c.id
+//       ORDER BY c.created_at DESC
+//     `,
+//       [id]
+//     );
+
+//     const result = data.length ? 1 : 0;
+
+//     return res.status(200).json({
+//       message: "Comments fetched successfully",
+//       status: result,
+//       error: [],
+//       data,
+//     });
+//   } catch (error) {
+//     return res.status(400).json({
+//       message: "Something went wrong",
+//       status: 0,
+//       error: error.message,
+//       data: [],
+//     });
+//   }
+// };
+
+export const getAllCommand = async (req, res) => {
+  try {
+    const { id: reviewId, userId } = req.body;
+
+    const [data] = await db.query(
+      `
+      SELECT 
+        c.id AS comment_id,
+        c.comment,
+        c.created_at,
+        c.user_id,
+        c.replayed_comment_id,
+        u.name AS commenter_name,
+        u.avathar,
+        COUNT(l.id) AS like_count,
+        -- Check if this specific comment is liked by current user
+        CASE 
+          WHEN EXISTS (
+            SELECT 1 
+            FROM like_table 
+            WHERE command_id = c.id AND user_id = ? AND like_type = 2
+          ) THEN true
+          ELSE false
+        END AS is_favorite
+      FROM comments AS c
+      LEFT JOIN user AS u ON c.user_id = u.id
+      LEFT JOIN like_table AS l ON c.id = l.command_id AND l.like_type = 2
+      WHERE c.review_id = ? AND c.status = 0
+      GROUP BY 
+        c.id, c.comment, c.created_at, c.user_id, c.replayed_comment_id,
+        u.name, u.avathar
+      ORDER BY c.created_at DESC
+      `,
+      [userId, reviewId] // Correct parameter order
+    );
+
+    const result = data.length ? 1 : 0;
+
+    return res.status(200).json({
+      message: "Comments fetched successfully",
+      status: result,
+      error: [],
+      data,
+    });
+  } catch (error) {
+    return res.status(400).json({
+      message: "Something went wrong",
+      status: 0,
+      error: error.message,
       data: [],
     });
   }
