@@ -336,6 +336,39 @@
         }
       }
     },
+    "/user/checkUserNameAvailabity": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "userName": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
     "/user/getReportList": {
       "get": {
         "tags": [
@@ -811,7 +844,7 @@
     "/movie/editById/{id}": {
       "put": {
         "tags": [
-          "Movie"
+          "Admin"
         ],
         "description": "",
         "parameters": [
@@ -874,7 +907,7 @@
     "/movie/deleteMovieById/{id}": {
       "delete": {
         "tags": [
-          "Movie"
+          "Admin"
         ],
         "description": "",
         "parameters": [
@@ -928,7 +961,7 @@
     "/movie/streamingList": {
       "get": {
         "tags": [
-          "Movie"
+          "Admin"
         ],
         "description": "",
         "responses": {
@@ -1004,7 +1037,7 @@
     "/movie/actorList": {
       "get": {
         "tags": [
-          "Movie"
+          "Admin"
         ],
         "description": "",
         "responses": {
@@ -1020,7 +1053,7 @@
     "/movie/actorByid/{id}": {
       "get": {
         "tags": [
-          "Movie"
+          "Admin"
         ],
         "description": "",
         "parameters": [
@@ -1104,7 +1137,7 @@
     "/movie/addCast": {
       "post": {
         "tags": [
-          "Movie"
+          "Admin"
         ],
         "description": "",
         "parameters": [

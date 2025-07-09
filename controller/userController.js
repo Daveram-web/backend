@@ -90,7 +90,7 @@ export const registerUser = async (req, res) => {
     if (!userData) {
       return res
         .status(404)
-        .json({ message: "OTP not generated for this email" });
+        .json({ message: "OTP is not generated for this email" });
     }
 
     const now = new Date();
@@ -136,6 +136,47 @@ export const registerUser = async (req, res) => {
     });
   }
 };
+
+export const checkUserName = async (req, res) => {
+  try {
+    const { userName } = req.body;
+
+    if (!userName) {
+      return res.status(400).json({
+        message: "The User Name is needed",
+        error: "User Name is missing",
+        status: 0,
+        data: []
+      });
+    }
+
+    const [rows] = await db.query("SELECT * FROM user WHERE name = ? LIMIT 1", [userName]);
+
+    if (rows.length > 0) {
+      return res.status(200).json({
+        message: "User name is already taken",
+        status: 0,
+        data: []
+      });
+    }
+
+    return res.status(200).json({
+      message: "User name is available",
+      status: 1,
+      data: []
+    });
+
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      message: "An error occurred while checking the user name",
+      error: error.message,
+      status: 0,
+      data: []
+    });
+  }
+};
+
 
 export const forgetPassword = async (req, res) => {
   try {

@@ -609,7 +609,6 @@ export const movieList = async (req, res) => {
     const { offset = 0 } = req.body;
     const parsedOffset = parseInt(offset) || 0;
 
-    // Fix: Proper user fetch
     const [user] = await db.query(
       "SELECT gener_id, language_id FROM user WHERE id = ?",
       [user_id]

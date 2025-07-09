@@ -2,6 +2,7 @@ import express from "express";
 import {
   changePassword,
   check,
+  checkUserName,
   editProfile,
   emailVerification,
   forgetPassword,
@@ -49,6 +50,10 @@ userRouter.put("/editProfile", (req, res) => {
   //#swagger.tags = ['User']
   editProfile(req, res);
 });
+userRouter.post("/checkUserNameAvailabity",(req,res)=>{
+  //#swagger.tags = ['User']
+  checkUserName(req,res)
+})
 
 {
   /**Report */

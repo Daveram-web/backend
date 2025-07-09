@@ -1,0 +1,1412 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Construction App API's</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    <div class="mt-3" style="margin-top: 20px">
+      <fieldset style="border: 1px solid #ddd; padding: 10px">
+        <form name="form" id="avatarform" method="post">
+          <div class="mb-3" style="margin-bottom: 15px">
+            <h5
+              style="
+                text-decoration: underline;
+                color: #f00;
+                margin-bottom: 10px;
+              "
+            >
+              1. Login
+            </h5>
+            <div style="font-size: 14px">
+              <p>
+                <strong style="display: inline-block; width: 130px"
+                  >API URL:</strong
+                >
+                https://constructionapp.skyraantech.com/backend/api/login
+              </p>
+              <p>
+                <strong style="display: inline-block; width: 130px"
+                  >Method:</strong
+                >
+                POST
+              </p>
+              <p>
+                <strong style="display: inline-block; width: 130px"
+                  >Content-Type:</strong
+                >
+                application/json; charset=utf-8
+              </p>
+              <p>
+                <strong style="display: inline-block; width: 130px"
+                  >API Mode:</strong
+                >
+                Development
+              </p>
+            </div>
+          </div>
+          <div style="overflow-x: auto">
+            <table
+              class="table table-bordered"
+              style="width: 100%; border-collapse: collapse; font-size: 14px"
+            >
+              <thead style="background-color: #162133; color: #fff">
+                <tr>
+                  <th style="padding: 6px; text-align: left">Label Name</th>
+                  <th style="padding: 6px; text-align: left">Value</th>
+                  <th style="padding: 6px; text-align: left">Variable Name</th>
+                  <th style="padding: 6px; text-align: left">Mandatory</th>
+                  <th style="padding: 6px; text-align: left">Note</th>
+                  <th style="padding: 6px; text-align: left">Sample</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="padding: 6px">
+                    <label>Email</label>
+                  </td>
+                  <td style="padding: 6px">
+                    <input
+                      type="text"
+                      id="r_email"
+                      class="form-control form-control-sm"
+                    />
+                  </td>
+                  <td style="padding: 6px">email</td>
+                  <td style="padding: 6px">Yes if type is 0</td>
+                  <td style="padding: 6px">string</td>
+                  <td style="padding: 6px">email -> abc@gmail.com</td>
+                </tr>
+                <tr>
+                  <td style="padding: 6px">
+                    <label>Mobile</label>
+                  </td>
+                  <td style="padding: 6px">
+                    <input
+                      type="text"
+                      id="r_mobile"
+                      class="form-control form-control-sm"
+                    />
+                  </td>
+                  <td style="padding: 6px">mobile</td>
+                  <td style="padding: 6px">Yes if type is 1</td>
+                  <td style="padding: 6px">string</td>
+                  <td style="padding: 6px">mobile -> 9898989898</td>
+                </tr>
+                <tr>
+                  <td style="padding: 6px">
+                    <label>Type</label>
+                  </td>
+                  <td style="padding: 6px">
+                    <input
+                      type="text"
+                      id="r_type"
+                      class="form-control form-control-sm"
+                    />
+                  </td>
+                  <td style="padding: 6px">type</td>
+                  <td style="padding: 6px">Yes</td>
+                  <td style="padding: 6px">string</td>
+                  <td style="padding: 6px">
+                    type -> 0 for email / 1 for mobile
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding: 6px">
+                    <label>Device Id</label>
+                  </td>
+                  <td style="padding: 6px">
+                    <input
+                      type="text"
+                      id="r_dev_id"
+                      class="form-control form-control-sm"
+                    />
+                  </td>
+                  <td style="padding: 6px">device_id</td>
+                  <td style="padding: 6px">No</td>
+                  <td style="padding: 6px">string</td>
+                  <td style="padding: 6px">device_id</td>
+                </tr>
+                <tr>
+                  <td style="padding: 6px">
+                    <label>Device Type</label>
+                  </td>
+                  <td style="padding: 6px">
+                    <input
+                      type="text"
+                      id="r_dev_type"
+                      class="form-control form-control-sm"
+                    />
+                  </td>
+                  <td style="padding: 6px">device_type</td>
+                  <td style="padding: 6px">No</td>
+                  <td style="padding: 6px">string</td>
+                  <td style="padding: 6px">device_type</td>
+                </tr>
+                <tr>
+                  <td style="padding: 6px">
+                    <label>Device Token</label>
+                  </td>
+                  <td style="padding: 6px">
+                    <input
+                      type="text"
+                      id="r_dev_token"
+                      class="form-control form-control-sm"
+                    />
+                  </td>
+                  <td style="padding: 6px">device_token</td>
+                  <td style="padding: 6px">No</td>
+                  <td style="padding: 6px">string</td>
+                  <td style="padding: 6px">device_token</td>
+                </tr>
+                <tr>
+                  <td style="padding: 6px">
+                    <label>OAuth Id</label>
+                  </td>
+                  <td style="padding: 6px">
+                    <input
+                      type="text"
+                      id="r_o_id"
+                      class="form-control form-control-sm"
+                    />
+                  </td>
+                  <td style="padding: 6px">o_auth_id</td>
+                  <td style="padding: 6px">Yes (for social login)</td>
+                  <td style="padding: 6px">string</td>
+                  <td style="padding: 6px">o_auth_id</td>
+                </tr>
+                <tr>
+                  <td style="padding: 6px">
+                    <label>OAuth Provider</label>
+                  </td>
+                  <td style="padding: 6px">
+                    <input
+                      type="text"
+                      id="r_o_prov"
+                      class="form-control form-control-sm"
+                    />
+                  </td>
+                  <td style="padding: 6px">o_auth_prov</td>
+                  <td style="padding: 6px">Yes (for social login)</td>
+                  <td style="padding: 6px">
+                    string -> 2 for google , 3 for apple , 4 for facebook
+                  </td>
+                  <td style="padding: 6px">o_auth_prov</td>
+                </tr>
+                <tr>
+                  <td colspan="6" style="text-align: center; padding: 10px">
+                    <button
+                      type="button"
+                      class="btn btn-primary"
+                      onclick="loginCA(event)"
+                      style="
+                        background-color: #007bff;
+                        border: none;
+                        padding: 6px 12px;
+                        color: #fff;
+                        cursor: pointer;
+                      "
+                    >
+                      Submit
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </form>
+      </fieldset>
+      <br />
+      <fieldset style="border: 1px solid #ddd; padding: 10px">
+        <form name="form" id="categorylistform" method="post">
+          <div class="mb-3" style="margin-bottom: 15px">
+            <h5
+              style="
+                text-decoration: underline;
+                color: #f00;
+                margin-bottom: 10px;
+              "
+            >
+              2. Verify OTP
+            </h5>
+            <div style="font-size: 14px">
+              <p>
+                <strong style="display: inline-block; width: 130px"
+                  >API URL:</strong
+                >
+                https://constructionapp.skyraantech.com/backend/api/verify-otp
+              </p>
+              <p>
+                <strong style="display: inline-block; width: 130px"
+                  >Method:</strong
+                >
+                POST
+              </p>
+              <p>
+                <strong style="display: inline-block; width: 130px"
+                  >Content-Type:</strong
+                >
+                application/json; charset=utf-8
+              </p>
+              <p>
+                <strong style="display: inline-block; width: 130px"
+                  >API Mode:</strong
+                >
+                Development
+              </p>
+            </div>
+          </div>
+          <div style="overflow-x: auto">
+            <table
+              class="table table-bordered"
+              style="width: 100%; border-collapse: collapse; font-size: 14px"
+            >
+              <thead style="background-color: #162133; color: #fff">
+                <tr>
+                  <th style="padding: 6px; text-align: left">Label Name</th>
+                  <th style="padding: 6px; text-align: left">Value</th>
+                  <th style="padding: 6px; text-align: left">Variable Name</th>
+                  <th style="padding: 6px; text-align: left">Mandatory</th>
+                  <th style="padding: 6px; text-align: left">Note</th>
+                  <th style="padding: 6px; text-align: left">Sample</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Add your rows here if needed -->
+                <tr>
+                  <td style="padding: 6px">
+                    <label>Email</label>
+                  </td>
+                  <td style="padding: 6px">
+                    <input
+                      type="text"
+                      id="v_email"
+                      class="form-control form-control-sm"
+                    />
+                  </td>
+                  <td style="padding: 6px">email</td>
+                  <td style="padding: 6px">Yes if type is 0</td>
+                  <td style="padding: 6px">string</td>
+                  <td style="padding: 6px">email -> abc@gmail.com</td>
+                </tr>
+                <tr>
+                  <td style="padding: 6px">
+                    <label>Mobile</label>
+                  </td>
+                  <td style="padding: 6px">
+                    <input
+                      type="text"
+                      id="v_mobile"
+                      class="form-control form-control-sm"
+                    />
+                  </td>
+                  <td style="padding: 6px">mobile</td>
+                  <td style="padding: 6px">Yes if type is 1</td>
+                  <td style="padding: 6px">string</td>
+                  <td style="padding: 6px">mobile -> 9898989898</td>
+                </tr>
+                <tr>
+                  <td style="padding: 6px">
+                    <label>Type</label>
+                  </td>
+                  <td style="padding: 6px">
+                    <input
+                      type="text"
+                      id="v_type"
+                      class="form-control form-control-sm"
+                    />
+                  </td>
+                  <td style="padding: 6px">type</td>
+                  <td style="padding: 6px">Yes</td>
+                  <td style="padding: 6px">string</td>
+                  <td style="padding: 6px">
+                    type -> 0 for email / 1 for mobile
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding: 6px">
+                    <label>Otp</label>
+                  </td>
+                  <td style="padding: 6px">
+                    <input
+                      type="text"
+                      id="v_otp"
+                      class="form-control form-control-sm"
+                    />
+                  </td>
+                  <td style="padding: 6px">otp</td>
+                  <td style="padding: 6px">Yes</td>
+                  <td style="padding: 6px">string</td>
+                  <td style="padding: 6px">otp -> 1111</td>
+                </tr>
+                <tr>
+                  <td colspan="6" style="text-align: center; padding: 10px">
+                    <button
+                      type="button"
+                      class="btn btn-primary"
+                      onclick="verifyOtpCA(event)"
+                      style="
+                        background-color: #007bff;
+                        border: none;
+                        padding: 6px 12px;
+                        color: #fff;
+                        cursor: pointer;
+                      "
+                    >
+                      Submit
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </form>
+      </fieldset>
+      <br />
+      <fieldset style="border: 1px solid #ddd; padding: 10px">
+        <form name="form" id="categorylistform" method="post">
+          <div class="mb-3" style="margin-bottom: 15px">
+            <h5
+              style="
+                text-decoration: underline;
+                color: #f00;
+                margin-bottom: 10px;
+              "
+            >
+              3. Verify Business number
+            </h5>
+            <div style="font-size: 14px">
+              <p>
+                <strong style="display: inline-block; width: 130px"
+                  >API URL:</strong
+                >
+                https://constructionapp.skyraantech.com/backend/api/verify-business-num
+              </p>
+              <p>
+                <strong style="display: inline-block; width: 130px"
+                  >Method:</strong
+                >
+                POST (AUTH)
+              </p>
+              <p>
+                <strong style="display: inline-block; width: 130px"
+                  >Content-Type:</strong
+                >
+                application/json; charset=utf-8
+              </p>
+              <p>
+                <strong style="display: inline-block; width: 130px"
+                  >API Mode:</strong
+                >
+                Development
+              </p>
+            </div>
+          </div>
+          <div style="overflow-x: auto">
+            <table
+              class="table table-bordered"
+              style="width: 100%; border-collapse: collapse; font-size: 14px"
+            >
+              <thead style="background-color: #162133; color: #fff">
+                <tr>
+                  <th style="padding: 6px; text-align: left">Label Name</th>
+                  <th style="padding: 6px; text-align: left">Value</th>
+                  <th style="padding: 6px; text-align: left">Variable Name</th>
+                  <th style="padding: 6px; text-align: left">Mandatory</th>
+                  <th style="padding: 6px; text-align: left">Note</th>
+                  <th style="padding: 6px; text-align: left">Sample</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Add your rows here if needed -->
+                <tr>
+                  <td style="padding: 6px">
+                    <label>User Id</label>
+                  </td>
+                  <td style="padding: 6px">
+                    <input
+                      type="text"
+                      id="v_bus_id"
+                      class="form-control form-control-sm"
+                    />
+                  </td>
+                  <td style="padding: 6px">id</td>
+                  <td style="padding: 6px">Yes</td>
+                  <td style="padding: 6px">number</td>
+                  <td style="padding: 6px">id</td>
+                </tr>
+                <tr>
+                  <td style="padding: 6px">
+                    <label>Email</label>
+                  </td>
+                  <td style="padding: 6px">
+                    <input
+                      type="text"
+                      id="v_bus_email"
+                      class="form-control form-control-sm"
+                    />
+                  </td>
+                  <td style="padding: 6px">email</td>
+                  <td style="padding: 6px">Yes, if type is 0</td>
+                  <td style="padding: 6px">string</td>
+                  <td style="padding: 6px">email</td>
+                </tr>
+                <tr>
+                  <td style="padding: 6px">
+                    <label>Mobile</label>
+                  </td>
+                  <td style="padding: 6px">
+                    <input
+                      type="text"
+                      id="v_bus_mobile"
+                      class="form-control form-control-sm"
+                    />
+                  </td>
+                  <td style="padding: 6px">mobile</td>
+                  <td style="padding: 6px">Yes, if type is 1</td>
+                  <td style="padding: 6px">string</td>
+                  <td style="padding: 6px">mobile</td>
+                </tr>
+                <tr>
+                  <td style="padding: 6px">
+                    <label>whatsapp</label>
+                  </td>
+                  <td style="padding: 6px">
+                    <input
+                      type="text"
+                      id="v_bus_whatsapp"
+                      class="form-control form-control-sm"
+                    />
+                  </td>
+                  <td style="padding: 6px">whatsapp</td>
+                  <td style="padding: 6px">Yes, if type is 2</td>
+                  <td style="padding: 6px">string</td>
+                  <td style="padding: 6px">whatsapp</td>
+                </tr>
+                <tr>
+                  <td style="padding: 6px">
+                    <label>Type</label>
+                  </td>
+                  <td style="padding: 6px">
+                    <input
+                      type="text"
+                      id="v_bus_type"
+                      class="form-control form-control-sm"
+                    />
+                  </td>
+                  <td style="padding: 6px">type</td>
+                  <td style="padding: 6px">Yes</td>
+                  <td style="padding: 6px">string</td>
+                  <td style="padding: 6px">
+                    type-> 0 for email / 1 for mobile / 2 for whatsapp
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding: 6px">
+                    <label>From</label>
+                  </td>
+                  <td style="padding: 6px">
+                    <input
+                      type="text"
+                      id="v_bus_from"
+                      class="form-control form-control-sm"
+                    />
+                  </td>
+                  <td style="padding: 6px">from</td>
+                  <td style="padding: 6px">Yes</td>
+                  <td style="padding: 6px">string - users/business</td>
+                  <td style="padding: 6px">
+                    from = users if update user detail , business if update
+                    business detail
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="6" style="text-align: center; padding: 10px">
+                    <button
+                      type="button"
+                      class="btn btn-primary"
+                      onclick="verifyBusNumCA(event)"
+                      style="
+                        background-color: #007bff;
+                        border: none;
+                        padding: 6px 12px;
+                        color: #fff;
+                        cursor: pointer;
+                      "
+                    >
+                      Submit
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </form>
+      </fieldset>
+      <br />
+      <fieldset style="border: 1px solid #ddd; padding: 10px">
+        <form name="form" id="categorylistform" method="post">
+          <div class="mb-3" style="margin-bottom: 15px">
+            <h5
+              style="
+                text-decoration: underline;
+                color: #f00;
+                margin-bottom: 10px;
+              "
+            >
+              4. Verify business num OTP
+            </h5>
+            <div style="font-size: 14px">
+              <p>
+                <strong style="display: inline-block; width: 130px"
+                  >API URL:</strong
+                >
+                https://constructionapp.skyraantech.com/backend/api/verify-business-otp
+              </p>
+              <p>
+                <strong style="display: inline-block; width: 130px"
+                  >Method:</strong
+                >
+                POST (AUTH)
+              </p>
+              <p>
+                <strong style="display: inline-block; width: 130px"
+                  >Content-Type:</strong
+                >
+                application/json; charset=utf-8
+              </p>
+              <p>
+                <strong style="display: inline-block; width: 130px"
+                  >API Mode:</strong
+                >
+                Development
+              </p>
+            </div>
+          </div>
+          <div style="overflow-x: auto">
+            <table
+              class="table table-bordered"
+              style="width: 100%; border-collapse: collapse; font-size: 14px"
+            >
+              <thead style="background-color: #162133; color: #fff">
+                <tr>
+                  <th style="padding: 6px; text-align: left">Label Name</th>
+                  <th style="padding: 6px; text-align: left">Value</th>
+                  <th style="padding: 6px; text-align: left">Variable Name</th>
+                  <th style="padding: 6px; text-align: left">Mandatory</th>
+                  <th style="padding: 6px; text-align: left">Note</th>
+                  <th style="padding: 6px; text-align: left">Sample</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Add your rows here if needed -->
+                <tr>
+                  <td style="padding: 6px">
+                    <label>User ID</label>
+                  </td>
+                  <td style="padding: 6px">
+                    <input
+                      type="text"
+                      id="v_bus_otp_id"
+                      class="form-control form-control-sm"
+                    />
+                  </td>
+                  <td style="padding: 6px">id</td>
+                  <td style="padding: 6px">Yes</td>
+                  <td style="padding: 6px">number</td>
+                  <td style="padding: 6px">id</td>
+                </tr>
+                <tr>
+                  <td style="padding: 6px">
+                    <label>Email</label>
+                  </td>
+                  <td style="padding: 6px">
+                    <input
+                      type="text"
+                      id="v_bus_otp_email"
+                      class="form-control form-control-sm"
+                    />
+                  </td>
+                  <td style="padding: 6px">email</td>
+                  <td style="padding: 6px">Yes, if type is 0</td>
+                  <td style="padding: 6px">string</td>
+                  <td style="padding: 6px">email</td>
+                </tr>
+                <tr>
+                  <td style="padding: 6px">
+                    <label>Mobile</label>
+                  </td>
+                  <td style="padding: 6px">
+                    <input
+                      type="text"
+                      id="v_bus_otp_mob"
+                      class="form-control form-control-sm"
+                    />
+                  </td>
+                  <td style="padding: 6px">mobile</td>
+                  <td style="padding: 6px">Yes, if type is 1</td>
+                  <td style="padding: 6px">string</td>
+                  <td style="padding: 6px">mobile</td>
+                </tr>
+                <tr>
+                  <td style="padding: 6px">
+                    <label>whatsapp</label>
+                  </td>
+                  <td style="padding: 6px">
+                    <input
+                      type="text"
+                      id="v_bus_otp_whatsapp"
+                      class="form-control form-control-sm"
+                    />
+                  </td>
+                  <td style="padding: 6px">whatsapp</td>
+                  <td style="padding: 6px">Yes, if type is 2</td>
+                  <td style="padding: 6px">string</td>
+                  <td style="padding: 6px">whatsapp</td>
+                </tr>
+                <tr>
+                  <td style="padding: 6px">
+                    <label>Type</label>
+                  </td>
+                  <td style="padding: 6px">
+                    <input
+                      type="text"
+                      id="v_bus_otp_type"
+                      class="form-control form-control-sm"
+                    />
+                  </td>
+                  <td style="padding: 6px">type</td>
+                  <td style="padding: 6px">Yes</td>
+                  <td style="padding: 6px">string</td>
+                  <td style="padding: 6px">
+                    type -> 0 for email / 1 for mobile / 2 for whatsapp
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding: 6px">
+                    <label>Otp</label>
+                  </td>
+                  <td style="padding: 6px">
+                    <input
+                      type="text"
+                      id="v_bus_otp_otp"
+                      class="form-control form-control-sm"
+                    />
+                  </td>
+                  <td style="padding: 6px">otp</td>
+                  <td style="padding: 6px">Yes</td>
+                  <td style="padding: 6px">string</td>
+                  <td style="padding: 6px">otp -> 1111</td>
+                </tr>
+                <tr>
+                  <td style="padding: 6px">
+                    <label>From</label>
+                  </td>
+                  <td style="padding: 6px">
+                    <input
+                      type="text"
+                      id="v_bus_otp_from"
+                      class="form-control form-control-sm"
+                    />
+                  </td>
+                  <td style="padding: 6px">from</td>
+                  <td style="padding: 6px">Yes</td>
+                  <td style="padding: 6px">string - users/business</td>
+                  <td style="padding: 6px">
+                    from = users if update user detail , business if update
+                    business detail
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="6" style="text-align: center; padding: 10px">
+                    <button
+                      type="button"
+                      class="btn btn-primary"
+                      onclick="verifyBusNumOtpCA(event)"
+                      style="
+                        background-color: #007bff;
+                        border: none;
+                        padding: 6px 12px;
+                        color: #fff;
+                        cursor: pointer;
+                      "
+                    >
+                      Submit
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </form>
+      </fieldset>
+      <br />
+      <fieldset style="border: 1px solid #ddd; padding: 10px">
+        <form name="form" id="categorylistform" method="post">
+          <div class="mb-3" style="margin-bottom: 15px">
+            <h5
+              style="
+                text-decoration: underline;
+                color: #f00;
+                margin-bottom: 10px;
+              "
+            >
+              5. Update user
+            </h5>
+            <div style="font-size: 14px">
+              <p>
+                <strong style="display: inline-block; width: 130px"
+                  >API URL:</strong
+                >
+                https://constructionapp.skyraantech.com/backend/api/update-user
+              </p>
+              <p>
+                <strong style="display: inline-block; width: 130px"
+                  >Method:</strong
+                >
+                POST (AUTH)
+              </p>
+              <p>
+                <strong style="display: inline-block; width: 130px"
+                  >Content-Type:</strong
+                >
+                application/json; charset=utf-8
+              </p>
+              <p>
+                <strong style="display: inline-block; width: 130px"
+                  >API Mode:</strong
+                >
+                Development
+              </p>
+            </div>
+          </div>
+          <div style="overflow-x: auto">
+            <table
+              class="table table-bordered"
+              style="width: 100%; border-collapse: collapse; font-size: 14px"
+            >
+              <thead style="background-color: #162133; color: #fff">
+                <tr>
+                  <th style="padding: 6px; text-align: left">Label Name</th>
+                  <th style="padding: 6px; text-align: left">Value</th>
+                  <th style="padding: 6px; text-align: left">Variable Name</th>
+                  <th style="padding: 6px; text-align: left">Mandatory</th>
+                  <th style="padding: 6px; text-align: left">Note</th>
+                  <th style="padding: 6px; text-align: left">Sample</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Add your rows here if needed -->
+                <tr>
+                  <td style="padding: 6px">
+                    <label>User ID</label>
+                  </td>
+                  <td style="padding: 6px">
+                    <input
+                      type="text"
+                      id="u_id"
+                      class="form-control form-control-sm"
+                    />
+                  </td>
+                  <td style="padding: 6px">id</td>
+                  <td style="padding: 6px">Yes</td>
+                  <td style="padding: 6px">number</td>
+                  <td style="padding: 6px">id -> 1</td>
+                </tr>
+                <tr>
+                  <td style="padding: 6px">
+                    <label>Name</label>
+                  </td>
+                  <td style="padding: 6px">
+                    <input
+                      type="text"
+                      id="u_name"
+                      class="form-control form-control-sm"
+                    />
+                  </td>
+                  <td style="padding: 6px">name</td>
+                  <td style="padding: 6px">no</td>
+                  <td style="padding: 6px">string</td>
+                  <td style="padding: 6px">name -> arun</td>
+                </tr>
+                <tr>
+                  <td style="padding: 6px">
+                    <label>Email</label>
+                  </td>
+                  <td style="padding: 6px">
+                    <input
+                      type="text"
+                      id="u_email"
+                      class="form-control form-control-sm"
+                    />
+                  </td>
+                  <td style="padding: 6px">email</td>
+                  <td style="padding: 6px">no</td>
+                  <td style="padding: 6px">string</td>
+                  <td style="padding: 6px">email -> arun@gmail.com</td>
+                </tr>
+                <tr>
+                  <td style="padding: 6px">
+                    <label>Whatsapp</label>
+                  </td>
+                  <td style="padding: 6px">
+                    <input
+                      type="text"
+                      id="u_w_mobile"
+                      class="form-control form-control-sm"
+                    />
+                  </td>
+                  <td style="padding: 6px">whatsapp</td>
+                  <td style="padding: 6px">no</td>
+                  <td style="padding: 6px">string</td>
+                  <td style="padding: 6px">whatsapp -> 9898989898</td>
+                </tr>
+                <tr>
+                  <td style="padding: 6px">
+                    <label>Profile image</label>
+                  </td>
+                  <td style="padding: 6px">
+                    <input
+                      type="text"
+                      id="u_profile_img"
+                      class="form-control form-control-sm"
+                    />
+                  </td>
+                  <td style="padding: 6px">profile_img</td>
+                  <td style="padding: 6px">no</td>
+                  <td style="padding: 6px">string</td>
+                  <td style="padding: 6px">profile_img -> img url</td>
+                </tr>
+                <tr>
+                  <td style="padding: 6px">
+                    <label>Address</label>
+                  </td>
+                  <td style="padding: 6px">
+                    <input
+                      type="text"
+                      id="u_address"
+                      class="form-control form-control-sm"
+                    />
+                  </td>
+                  <td style="padding: 6px">address</td>
+                  <td style="padding: 6px">no</td>
+                  <td style="padding: 6px">string</td>
+                  <td style="padding: 6px">address</td>
+                </tr>
+                <tr>
+                  <td style="padding: 6px">
+                    <label>City</label>
+                  </td>
+                  <td style="padding: 6px">
+                    <input
+                      type="text"
+                      id="u_city"
+                      class="form-control form-control-sm"
+                    />
+                  </td>
+                  <td style="padding: 6px">city</td>
+                  <td style="padding: 6px">no</td>
+                  <td style="padding: 6px">string</td>
+                  <td style="padding: 6px">city</td>
+                </tr>
+                <tr>
+                  <td style="padding: 6px">
+                    <label>State</label>
+                  </td>
+                  <td style="padding: 6px">
+                    <input
+                      type="text"
+                      id="u_state"
+                      class="form-control form-control-sm"
+                    />
+                  </td>
+                  <td style="padding: 6px">state</td>
+                  <td style="padding: 6px">no</td>
+                  <td style="padding: 6px">string</td>
+                  <td style="padding: 6px">state</td>
+                </tr>
+                <tr>
+                  <td style="padding: 6px">
+                    <label>Pincode</label>
+                  </td>
+                  <td style="padding: 6px">
+                    <input
+                      type="text"
+                      id="u_pincode"
+                      class="form-control form-control-sm"
+                    />
+                  </td>
+                  <td style="padding: 6px">pincode</td>
+                  <td style="padding: 6px">no</td>
+                  <td style="padding: 6px">number</td>
+                  <td style="padding: 6px">pincode</td>
+                </tr>
+                <tr>
+                  <td style="padding: 6px">
+                    <label>Same mobile</label>
+                  </td>
+                  <td style="padding: 6px">
+                    <input
+                      type="text"
+                      id="u_is_samemobile"
+                      class="form-control form-control-sm"
+                    />
+                  </td>
+                  <td style="padding: 6px">isSameMobile</td>
+                  <td style="padding: 6px">
+                    Yes, when mobile & whatsapp are same
+                  </td>
+                  <td style="padding: 6px">string</td>
+                  <td style="padding: 6px">isSameMobile as 1</td>
+                </tr>
+                <tr>
+                  <td style="padding: 6px">
+                    <label>Latitude</label>
+                  </td>
+                  <td style="padding: 6px">
+                    <input
+                      type="text"
+                      id="u_lat"
+                      class="form-control form-control-sm"
+                    />
+                  </td>
+                  <td style="padding: 6px">lat</td>
+                  <td style="padding: 6px">Yes</td>
+                  <td style="padding: 6px">string</td>
+                  <td style="padding: 6px">lat</td>
+                </tr>
+                <tr>
+                  <td style="padding: 6px">
+                    <label>Longitude</label>
+                  </td>
+                  <td style="padding: 6px">
+                    <input
+                      type="text"
+                      id="u_lng"
+                      class="form-control form-control-sm"
+                    />
+                  </td>
+                  <td style="padding: 6px">lng</td>
+                  <td style="padding: 6px">Yes</td>
+                  <td style="padding: 6px">string</td>
+                  <td style="padding: 6px">lng as 1</td>
+                </tr>
+                <tr>
+                  <td colspan="6" style="text-align: center; padding: 10px">
+                    <button
+                      type="button"
+                      class="btn btn-primary"
+                      onclick="updateUserCA(event)"
+                      style="
+                        background-color: #007bff;
+                        border: none;
+                        padding: 6px 12px;
+                        color: #fff;
+                        cursor: pointer;
+                      "
+                    >
+                      Submit
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </form>
+      </fieldset>
+      <br />
+      <fieldset style="border: 1px solid #ddd; padding: 10px">
+        <form name="form" id="categorylistform" method="post">
+          <div class="mb-3" style="margin-bottom: 15px">
+            <h5
+              style="
+                text-decoration: underline;
+                color: #f00;
+                margin-bottom: 10px;
+              "
+            >
+              6. Business Percentage
+            </h5>
+            <div style="font-size: 14px">
+              <p>
+                <strong style="display: inline-block; width: 130px"
+                  >API URL:</strong
+                >
+                https://constructionapp.skyraantech.com/backend/api/business-percentage
+              </p>
+              <p>
+                <strong style="display: inline-block; width: 130px"
+                  >Method:</strong
+                >
+                POST (AUTH)
+              </p>
+              <p>
+                <strong style="display: inline-block; width: 130px"
+                  >Content-Type:</strong
+                >
+                application/json; charset=utf-8
+              </p>
+              <p>
+                <strong style="display: inline-block; width: 130px"
+                  >API Mode:</strong
+                >
+                Development
+              </p>
+            </div>
+          </div>
+          <div style="overflow-x: auto">
+            <table
+              class="table table-bordered"
+              style="width: 100%; border-collapse: collapse; font-size: 14px"
+            >
+              <thead style="background-color: #162133; color: #fff">
+                <tr>
+                  <th style="padding: 6px; text-align: left">Label Name</th>
+                  <th style="padding: 6px; text-align: left">Value</th>
+                  <th style="padding: 6px; text-align: left">Variable Name</th>
+                  <th style="padding: 6px; text-align: left">Mandatory</th>
+                  <th style="padding: 6px; text-align: left">Note</th>
+                  <th style="padding: 6px; text-align: left">Sample</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Add your rows here if needed -->
+                <tr>
+                  <td style="padding: 6px">
+                    <label>Business Id</label>
+                  </td>
+                  <td style="padding: 6px">
+                    <input
+                      type="text"
+                      id="up_id"
+                      class="form-control form-control-sm"
+                    />
+                  </td>
+                  <td style="padding: 6px">id</td>
+                  <td style="padding: 6px">Yes</td>
+                  <td style="padding: 6px">number</td>
+                  <td style="padding: 6px">id -> 1</td>
+                </tr>
+                <tr>
+                  <td colspan="6" style="text-align: center; padding: 10px">
+                    <button
+                      type="button"
+                      class="btn btn-primary"
+                      onclick="businessPerCA(event)"
+                      style="
+                        background-color: #007bff;
+                        border: none;
+                        padding: 6px 12px;
+                        color: #fff;
+                        cursor: pointer;
+                      "
+                    >
+                      Submit
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </form>
+      </fieldset>
+      <br />
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script>
+      let _token =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NDAsImluZm8iOiJBY3RpdmUiLCJpYXQiOjE3NDQ3ODQ4MDgsImV4cCI6MTc3NjMyMDgwOH0.b7bwZX8W8q1Wjj_ctEjLVq0kpR1cVrRO4kDBLfhKWFU";
+
+      function verifyOtpCA(event) {
+        var email = document.getElementById("v_email").value;
+        var mobile = document.getElementById("v_mobile").value;
+        var type = document.getElementById("v_type").value;
+        var otp = document.getElementById("v_otp").value;
+
+        var apiUrl = `https://constructionapp.skyraantech.com/backend/api/verify-otp`;
+
+        fetch(apiUrl, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email,
+            mobile,
+            otp,
+            type,
+          }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("Success:", data);
+            // // Handle the response as needed
+            // document.getElementById("imagebase64form").reset();
+            const newTab = window.open("", "_blank");
+            newTab.document.title = "SECTION";
+            newTab.document.write(
+              "<pre>" + JSON.stringify(data, null, 2) + "</pre>"
+            );
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+            // Handle errors
+          });
+      }
+
+      function loginCA(event) {
+        var email = document.getElementById("r_email").value;
+        var mobile = document.getElementById("r_mobile").value;
+        var type = document.getElementById("r_type").value;
+        var device_id = document.getElementById("r_dev_id").value;
+        var device_type = document.getElementById("r_dev_type").value;
+        var device_token = document.getElementById("r_dev_token").value;
+        var o_auth_id = document.getElementById("r_o_id").value;
+        var o_auth_prov = document.getElementById("r_o_prov").value;
+
+        var apiUrl = `https://constructionapp.skyraantech.com/backend/api/login`;
+
+        fetch(apiUrl, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email,
+            mobile,
+            type,
+            device_id,
+            device_type,
+            device_token,
+            o_auth_id,
+            o_auth_prov,
+          }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("Success:", data);
+            // // Handle the response as needed
+            // document.getElementById("imagebase64form").reset();
+            const newTab = window.open("", "_blank");
+            newTab.document.title = "SECTION";
+            newTab.document.write(
+              "<pre>" + JSON.stringify(data, null, 2) + "</pre>"
+            );
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+            // Handle errors
+          });
+      }
+
+      function verifyBusNumCA(event) {
+        var id = document.getElementById("v_bus_id").value
+          ? parseInt(document.getElementById("v_bus_id").value)
+          : "";
+        var email = document.getElementById("v_bus_email").value;
+        var mobile = document.getElementById("v_bus_mobile").value;
+        var whatsapp = document.getElementById("v_bus_whatsapp").value;
+        var type = document.getElementById("v_bus_type").value;
+        var from = document.getElementById("v_bus_from").value;
+        var apiUrl = `https://constructionapp.skyraantech.com/backend/api/verify-business-num`;
+
+        fetch(apiUrl, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "auth-token": _token,
+          },
+          body: JSON.stringify({
+            id,
+            email,
+            mobile,
+            whatsapp,
+            type,
+            from,
+          }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("Success:", data);
+            // // Handle the response as needed
+            // document.getElementById("imagebase64form").reset();
+            const newTab = window.open("", "_blank");
+            newTab.document.title = "SECTION";
+            newTab.document.write(
+              "<pre>" + JSON.stringify(data, null, 2) + "</pre>"
+            );
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+            // Handle errors
+          });
+      }
+
+      function verifyBusNumOtpCA(event) {
+        var id = document.getElementById("v_bus_otp_id").value
+          ? parseInt(document.getElementById("v_bus_otp_id").value)
+          : "";
+        var mobile = document.getElementById("v_bus_otp_mob").value;
+        var otp = document.getElementById("v_bus_otp_otp").value;
+        var email = document.getElementById("v_bus_otp_email").value;
+        var whatsapp = document.getElementById("v_bus_otp_whatsapp").value;
+        var type = document.getElementById("v_bus_otp_type").value;
+        var from = document.getElementById("v_bus_otp_from").value;
+        var apiUrl = `https://constructionapp.skyraantech.com/backend/api/verify-business-otp`;
+
+        fetch(apiUrl, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "auth-token": _token,
+          },
+          body: JSON.stringify({
+            id,
+            mobile,
+            otp,
+            email,
+            whatsapp,
+            type,
+            from,
+          }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("Success:", data);
+            // // Handle the response as needed
+            // document.getElementById("imagebase64form").reset();
+            const newTab = window.open("", "_blank");
+            newTab.document.title = "SECTION";
+            newTab.document.write(
+              "<pre>" + JSON.stringify(data, null, 2) + "</pre>"
+            );
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+            // Handle errors
+          });
+      }
+
+      function updateUserCA(event) {
+        var id = document.getElementById("u_id").value;
+        var name = document.getElementById("u_name").value;
+        var email = document.getElementById("u_email").value;
+        var whatsapp = document.getElementById("u_w_mobile").value;
+        var profile_img = document.getElementById("u_profile_img").value;
+        var address = document.getElementById("u_address").value;
+        var city = document.getElementById("u_city").value;
+        var state = document.getElementById("u_state").value;
+        var pincode = document.getElementById("u_pincode").value
+          ? parseInt(document.getElementById("u_pincode").value)
+          : "";
+        var isSameMobile = document.getElementById("u_is_samemobile").value;
+        var lat = document.getElementById("u_lat").value;
+        var lng = document.getElementById("u_lng").value;
+        var apiUrl = `https://constructionapp.skyraantech.com/backend/api/update-user`;
+
+        fetch(apiUrl, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "auth-token": _token,
+          },
+          body: JSON.stringify({
+            id,
+            name,
+            email,
+            whatsapp,
+            profile_img,
+            address,
+            city,
+            state,
+            pincode,
+            isSameMobile,
+            lat,
+            lng,
+          }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("Success:", data);
+            // // Handle the response as needed
+            // document.getElementById("imagebase64form").reset();
+            const newTab = window.open("", "_blank");
+            newTab.document.title = "SECTION";
+            newTab.document.write(
+              "<pre>" + JSON.stringify(data, null, 2) + "</pre>"
+            );
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+            // Handle errors
+          });
+      }
+
+      function businessPerCA(event) {
+        var id = document.getElementById("up_id").value;
+        var apiUrl = `https://constructionapp.skyraantech.com/backend/api/business-percentage`;
+
+        fetch(apiUrl, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "auth-token": _token,
+          },
+          body: JSON.stringify({
+            id,
+          }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("Success:", data);
+            // // Handle the response as needed
+            // document.getElementById("imagebase64form").reset();
+            const newTab = window.open("", "_blank");
+            newTab.document.title = "SECTION";
+            newTab.document.write(
+              "<pre>" + JSON.stringify(data, null, 2) + "</pre>"
+            );
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+            // Handle errors
+          });
+      }
+      function delBusinessCA(event) {
+        var id = document.getElementById("del_bus_id").value
+          ? parseInt(document.getElementById("del_bus_id").value)
+          : "";
+        var apiUrl = `https://constructionapp.skyraantech.com/backend/api/delete-business?id=${id}`;
+
+        fetch(apiUrl, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "auth-token": _token,
+          },
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("Success:", data);
+            // // Handle the response as needed
+            // document.getElementById("imagebase64form").reset();
+            const newTab = window.open("", "_blank");
+            newTab.document.title = "SECTION";
+            newTab.document.write(
+              "<pre>" + JSON.stringify(data, null, 2) + "</pre>"
+            );
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+            // Handle errors
+          });
+      }
+    </script>
+  </body>
+</html>

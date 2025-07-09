@@ -58,50 +58,50 @@ movieRouter.post("/searchApi",(req,res)=>{
 
 
 movieRouter.put("/editById/:id",(req,res)=>{
-  //#swagger.tags = ['Movie']
+  // #swagger.tags = ['Admin']
   editMovie(req,res)})
 
 movieRouter.delete("/deleteMovieById/:id",(req,res)=>{
-  //#swagger.tags = ['Movie']
+  // #swagger.tags = ['Admin']
   deleteMovieById(req,res)
 })
 
 
 {/**streaming */}
-//#swagger.tags = ['Movie']
+  // #swagger.tags = ['Admin']
 movieRouter.post("/addstreaming",uploadMovieFiles, addStreaming);
 movieRouter.get("/streamingList", (req, res) => {
-  //#swagger.tags = ['Movie']
+  // #swagger.tags = ['Admin']
   streamingList(req, res);
 });
 
- //#swagger.tags = ['Movie']
+  // #swagger.tags = ['Admin']
 movieRouter.put("/editStreaming",uploadMovieFiles, editStream);
 
 {/**Actor */}
 
-//#swagger.tags = ['Movie']
+  // #swagger.tags = ['Admin']
 movieRouter.post("/addActors",uploadMovieFiles, addactor);
 
 movieRouter.get("/actorList", (req, res) => {
-  //#swagger.tags = ['Movie']
+  // #swagger.tags = ['Admin']
   actorList(req, res);
 });
 movieRouter.get("/actorByid/:id", (req, res) => {
-  //#swagger.tags = ['Movie']
+  // #swagger.tags = ['Admin']
   actorById(req, res);
 });
-//#swagger.tags = ['Movie']
+  // #swagger.tags = ['Admin']
 movieRouter.put("/editActor", uploadMovieFiles, editactor);
 {/**Crew */}
-//#swagger.tags = ['Movie']
+  // #swagger.tags = ['Admin']
 movieRouter.post("/addCrew",uploadMovieFiles, addCrew);
 
 
 
 {/**Cast */}
 movieRouter.post("/addCast", (req, res) => {
-  //#swagger.tags = ['Movie']
+  // #swagger.tags = ['Admin']
   castAdd(req, res);
 });
 
